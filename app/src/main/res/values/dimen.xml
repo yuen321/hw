@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="font_standard">16dp</dimen>
+    <dimen name="font_title">16dp</dimen>
+    <dimen name="font_menu">14dp</dimen>
+    <dimen name="input_standard">14dp</dimen>
+    <dimen name="padding_standard">20dp</dimen>
+    <dimen name="padding_large">40dp</dimen>
+    <dimen name="padding_medium">10dp</dimen>
+    <dimen name="padding_small">5dp</dimen>
+    <dimen name="button_max_width">150dp</dimen>
+    <dimen name="border">5dp</dimen>
+    <dimen name="edit_text_width">120dp</dimen>
+</resources>

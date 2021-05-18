@@ -1,0 +1,63 @@
+{
+  "menuItem":[
+    {
+      "title":"Item 1",
+      "subMenu":[
+        {
+          "title":"Item 1 Sub Menu 1"
+        },
+        {
+          "title":"Item 1 Sub Menu 2"
+        },
+        {
+          "title":"Item 1 Sub Menu 3"
+        },
+        {
+          "title":"Item 1 Sub Menu 4"
+        }
+      ]
+    },
+    {
+      "title":"Item 2",
+      "subMenu":[
+        {
+          "title":"Item 2 Sub Menu 1"
+        },
+        {
+          "title":"Item 2 Sub Menu 2"
+        },
+        {
+          "title":"Item 2 Sub Menu 3"
+        },
+        {
+          "title":"Item 2 Sub Menu 4"
+        }
+      ]
+    },
+    {
+      "title":"Item 3",
+      "subMenu":[
+        {
+          "title":"Item 3 Sub Menu 1"
+        },
+        {
+          "title":"Item 3 Sub Menu 2"
+        }
+      ]
+    },
+    {
+      "title": "Fruits",
+      "subMenu": [
+        {
+          "title": "Apple"
+        },
+        {
+          "title": "Orange"
+        },
+        {
+          "title": "Pineapple"
+        }
+      ]
+    }
+  ]
+}

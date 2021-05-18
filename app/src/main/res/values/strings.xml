@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">RtkTvApiService</string>
+    <string name="service_remote">AIDL</string>
+    <string name="service_local">Messenger &amp; Broadcast</string>
+    <string name="plus">+</string>
+    <string name="equal">= 0</string>
+    <string name="equal_regex">= %d</string>
+    <string name="show_menu">Show Menu</string>
+    <string name="two_level_menu">2 Level Menu</string>
+    <string name="sum_of_numbers">Sum Of 2 Numbers</string>
+    <string name="record_not_found">Record not found.</string>
+    <string name="regex_menu">%s (%d)</string>
+    <string name="regex_string">%s</string>
+</resources>
