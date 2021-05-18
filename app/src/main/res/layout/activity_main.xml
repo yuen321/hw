@@ -19,6 +19,7 @@
         <EditText
             android:importantForAutofill="no"
             android:id="@+id/etVal1"
+            android:imeOptions="actionNext"
             style="@style/editTextNumber"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@id/lay"
@@ -38,6 +39,7 @@
         <EditText
             android:importantForAutofill="no"
             android:id="@+id/etVal2"
+            android:imeOptions="actionDone"
             style="@style/editTextNumber"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/lay"
