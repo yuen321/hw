@@ -1,8 +1,10 @@
 package com.example.rtktvapiservice;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -79,14 +81,14 @@ public class MenuActivity extends AppCompatActivity {
                 ArrayList<SubMenu> subMenus = new ArrayList<>();
                 JSONObject jObject = menuJArray.getJSONObject(i);
                 String title = jObject.getString("title");
-                Log.d("Title -->", title);
+//                Log.d("Title -->", title);
                 JSONArray subMenuJArray = jObject.getJSONArray("subMenu");
-                Log.d("SubMenu Size -->", subMenuJArray.length()+ "!!");
+//                Log.d("SubMenu Size -->", subMenuJArray.length()+ "!!");
 
                 for (int j = 0; j< subMenuJArray.length(); j++) {
                     JSONObject subMenuJObject = subMenuJArray.getJSONObject(j);
                     String subMenuTitle=  subMenuJObject.getString("title");
-                    Log.d("subMenu", subMenuTitle);
+//                    Log.d("subMenu", subMenuTitle);
                     SubMenu subMenu = new SubMenu();
                     subMenu.setTitle(subMenuTitle);
                     subMenus.add(subMenu);
@@ -107,4 +109,21 @@ public class MenuActivity extends AppCompatActivity {
         return menus;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
+        return true;
+//        return super.onOptionsItemSelected(item);
+    }
 }

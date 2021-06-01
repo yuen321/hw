@@ -36,6 +36,11 @@ public class RemoteService extends Service {
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return Service.START_REDELIVER_INTENT; //Service is restarted if it gets terminated
+    }
+
+    @Override
     public IBinder onBind(Intent intent) {
         //return the interface
         return binder;

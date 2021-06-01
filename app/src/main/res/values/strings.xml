@@ -4,6 +4,7 @@
     <string name="service_local">Messenger &amp; Broadcast</string>
     <string name="plus">+</string>
     <string name="equal">= 0</string>
+    <string name="sum">Sum: %d</string>
     <string name="equal_regex">= %d</string>
     <string name="show_menu">Show Menu</string>
     <string name="two_level_menu">2 Level Menu</string>
@@ -11,4 +12,19 @@
     <string name="record_not_found">Record not found.</string>
     <string name="regex_menu">%s (%d)</string>
     <string name="regex_string">%s</string>
+
+
+    <string name="service_label_local">Local Service</string>
+    <string name="service_label">Service label</string>
+    <string name="service_connected">Service connected</string>
+    <string name="service_disconnected">Service disconnected</string>
+
+    <string name="service_disconnected_unexpected">Service has unexpectedly disconnected</string>
+    <string name="service_started">Service has started</string>
+    <string name="service_stopped">Service has stopped</string>
+    <string name="service_null">Service is null</string>
+    <string name="service_bind">Service bind</string>
+    <string name="service_unbind">Service unbind</string>
+    <string name="service_not_bind">Service not bind</string>
+
 </resources>
