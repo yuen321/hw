@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // Flag indicating whether we have called bind on the service.
     private boolean mMessengerBound = false;
     // Class for interacting with the main interface of the service.
-    private ServiceConnection mMessengerConnection = new ServiceConnection() {
+    private final ServiceConnection mMessengerConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
             // This is called when the connection with the service has been
             // established, giving us the object we can use to
@@ -129,11 +129,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void doUnbindService(){
         unbindMessengerService();
-        if(mBound){
+        if(iRemoteService != null){
             //aidl
             // Release information about the service's state.
+            iRemoteService = null;
             unbindService(mConnection);
-            mBound = false;
+//            mBound = false;
+            Log.d("unbindAIDL",getString(R.string.service_unbind));
         }
     }
 
@@ -201,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(receiver, new IntentFilter(MessengerService.NOTIFICATION));
+        registerReceiver(receiver, new IntentFilter(MessengerService.PACKAGE_NAME));
     }
 
     @Override
@@ -235,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //aidl
-    private boolean mBound;
+//    private boolean mBound;
     private IRemoteService iRemoteService = null;
     private final ServiceConnection mConnection = new ServiceConnection() {
         // Called when the connection with the service is established
@@ -244,14 +246,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Following the example above for an AIDL interface,
             // this gets an instance of the IRemoteInterface, which we can use to call on the service
             iRemoteService = IRemoteService.Stub.asInterface(service);
-            Log.d("serviceC", getString(R.string.service_connected));
+//            mBound=true;
+            aidlCalculateTotal();
+            Log.d("aidlSvcC", getString(R.string.service_bind));
         }
 
         // Called when the connection with the service disconnects unexpectedly
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.d("serviceDC", getString(R.string.service_disconnected_unexpected));
+            Log.d("aidlSvcDC", getString(R.string.service_disconnected_unexpected));
             iRemoteService = null;
+//            mBound= false;
         }
     };
 
@@ -273,25 +278,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void triggerAIDLSum(){
         try{
-           if(!bindAIDLService()){
-               Toast.makeText(this, getString(R.string.service_null), Toast.LENGTH_SHORT).show();
-               Log.e("bindAIDL", getString(R.string.service_not_bind));
-           }else{
-               if(iRemoteService != null) {
-                   int sum = iRemoteService.addNumbers(Integer.parseInt(etVal1.getText() != null && etVal1.getText().toString().length() > 0 ? etVal1.getText().toString() : "0"), Integer.parseInt(etVal2.getText() != null && etVal2.getText().toString().length() > 0 ? etVal2.getText().toString() : "0"));
-                   lblTotal.setText(String.format(getString(R.string.equal_regex), sum));
-               }else{
-                   Toast.makeText(this, getString(R.string.service_null), Toast.LENGTH_LONG).show();
-                   Log.e("bindAIDL", getString(R.string.service_null));
-               }
-           }
-        }catch (RemoteException e1)
-        {
-            Log.e("errRemote", e1.getMessage());
-            Toast.makeText(this, "aidl err: "+ e1.getMessage(), Toast.LENGTH_LONG).show();
+            if(bindAIDLService()){
+                if(iRemoteService!= null){
+                    aidlCalculateTotal();
+                }else{
+                    Log.d("bindAIDL", getString(R.string.service_null));
+                }
+            }else{
+                Toast.makeText(this, getString(R.string.service_not_bind), Toast.LENGTH_LONG).show();
+                Log.d("bindAIDL", getString(R.string.service_not_bind));
+            }
         }catch (Exception e){
             Log.e("err", e.getMessage());
             Toast.makeText(this, "aidl err: "+ e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void aidlCalculateTotal(){
+        if(iRemoteService != null) {
+            int sum = 0;
+            try {
+                sum = iRemoteService.addNumbers(Integer.parseInt(etVal1.getText() != null && etVal1.getText().toString().length() > 0 ? etVal1.getText().toString() : "0"), Integer.parseInt(etVal2.getText() != null && etVal2.getText().toString().length() > 0 ? etVal2.getText().toString() : "0"));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            lblTotal.setText(String.format(getString(R.string.equal_regex), sum));
+        }else{
+            Toast.makeText(this, getString(R.string.service_null), Toast.LENGTH_LONG).show();
+            Log.e("aidlCalTotal", getString(R.string.service_null));
         }
     }
 }

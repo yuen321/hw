@@ -33,7 +33,7 @@ public class MessengerService extends Service {
 
     // Target publish for clients to send messages to IncomingHandler.
     Messenger mMessenger;
-    public static final String NOTIFICATION = "com.example.rtktvapiservice.service";
+    public static final String PACKAGE_NAME = "com.example.rtktvapiservice.service";
     public final String HANDLER_THREAD_NAME = "SUM_OF_2_NUMBER";
 
     private IncomingHandler incomingHandler;
@@ -144,7 +144,7 @@ public class MessengerService extends Service {
     }
 
     private void publishResults(int total) {
-        Intent intent = new Intent(NOTIFICATION);
+        Intent intent = new Intent(PACKAGE_NAME);
         intent.putExtra(KEY_TOTAL, total);
         sendBroadcast(intent);
     }
