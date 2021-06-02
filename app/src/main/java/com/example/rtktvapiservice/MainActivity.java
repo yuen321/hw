@@ -127,22 +127,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void doUnbindService(){
-        unbindMessengerService();
-        if(iRemoteService != null){
-            //aidl
-            // Release information about the service's state.
-            iRemoteService = null;
-            unbindService(mConnection);
-//            mBound = false;
-            Log.d("unbindAIDL",getString(R.string.service_unbind));
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        doUnbindService();
+        unbindMessengerService();
+        unbindAIDLService();
     }
 
     //receive broadcast and update total label
@@ -182,17 +171,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        //start messenger service
+        //start messenger foreground service
         startMessengerService();
 
-        //bind AIDL
-        bindAIDLService();
+        // start AIDL service
+        startAIDLService();
+//        //bind AIDL
+//        bindAIDLService();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        doUnbindService();
+        unbindMessengerService();
+        unbindAIDLService();
     }
 
     @Override
@@ -260,6 +252,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
+    private void startAIDLService(){
+        try{
+            Intent intent = new Intent(this, RemoteService.class);
+            intent.setAction(RemoteService.SERVICE_NAME);
+            intent.setPackage(RemoteService.PACKAGE_NAME);
+            startService(intent); //start service
+        }catch (Exception e){
+            Log.e("errStartAIDL",e.getMessage());
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private boolean bindAIDLService(){
         try {
             if(iRemoteService == null){
@@ -306,6 +310,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else{
             Toast.makeText(this, getString(R.string.service_null), Toast.LENGTH_LONG).show();
             Log.e("aidlCalTotal", getString(R.string.service_null));
+        }
+    }
+
+    private void unbindAIDLService(){
+        //unbind aidl service
+        if(iRemoteService != null){
+            // Release information about the service's state.
+            iRemoteService = null;
+            unbindService(mConnection);
+//            mBound = false;
+            Log.d("unbindAIDL",getString(R.string.service_unbind));
         }
     }
 }
